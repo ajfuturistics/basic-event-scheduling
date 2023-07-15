@@ -12,19 +12,27 @@ const Column = ({ index, data, time }: Props) => {
   return (
     <td
       onClick={() => {
-        console.log({
-          index,
-          data,
-          schedule: {
-            from: new Date(data.year, data.month, data.date, time),
-            to: new Date(data.year, data.month, data.date, time + 1),
-          },
-        });
+        if (
+          moment([data.year, data.month, data.date, time]).isSameOrAfter(
+            Date.now(),
+            "hour"
+          )
+        ) {
+          console.log({
+            index,
+            schedule: {
+              from: new Date(data.year, data.month, data.date, time),
+              to: new Date(data.year, data.month, data.date, time + 1),
+            },
+          });
+        } else {
+          console.log("Date/Time is in past");
+        }
       }}
-      className="h-10 border-[1px] border-gray-300 p-2 relative"
+      className="h-14 border-[1px] border-gray-300 p-2 relative"
     >
       {index === 0 && (
-        <span className="absolute bg-gray-100 text-sm p-1 -left-20">
+        <span className="absolute bg-gray-100 text-sm p-1 -top-2 -left-20">
           {moment([data.year, data.month, data.date, time]).format("hh:mm A")}
         </span>
       )}
