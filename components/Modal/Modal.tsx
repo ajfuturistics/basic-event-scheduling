@@ -61,16 +61,13 @@ const ModalComponent = ({
     };
 
     if (todaySchedule) {
-      fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/schedule?id=${todaySchedule.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(schedule),
-        }
-      )
+      fetch(`/api/schedule?id=${todaySchedule.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(schedule),
+      })
         .then((response) => response.json())
         .then((data) => {
           console.log(data);
@@ -81,7 +78,7 @@ const ModalComponent = ({
           console.error(error);
         });
     } else {
-      fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/api/schedule`, {
+      fetch(`/api/schedule`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -102,15 +99,12 @@ const ModalComponent = ({
 
   const handleDelete = () => {
     if (todaySchedule) {
-      fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/api/schedule?id=${todaySchedule.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      )
+      fetch(`/api/schedule?id=${todaySchedule.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           console.log(data);

@@ -85,7 +85,9 @@ const Column = ({ index, data, time, schedules }: Props) => {
       </div>
 
       <ModalComponent
-        key={todaySchedule ? `${todaySchedule?.id}` : `modal-${index}-${time}`}
+        key={
+          todaySchedule ? `${todaySchedule?.id}` : `modal-${data.date}-${time}`
+        }
         openModal={openModal}
         setOpenModal={setOpenModal}
         data={data}
