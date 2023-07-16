@@ -40,7 +40,9 @@ export default async function Home({ searchParams }: PageProps) {
 
   return (
     <main className="w-full max-w-[50rem]">
-      <h1 className="text-center my-2">Current Week</h1>
+      <h1 className="text-center my-6 font-bold text-4xl">
+        Event Scheduler (Test version)
+      </h1>
 
       <WeekChanger />
 

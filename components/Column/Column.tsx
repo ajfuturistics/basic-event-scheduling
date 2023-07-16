@@ -39,7 +39,7 @@ const Column = ({ index, data, time, schedules }: Props) => {
         </span>
       )}
       <div
-        className="w-full h-full p-2 relative"
+        className="w-full h-full p-2 relative hover:bg-gray-200"
         onClick={() => {
           if (
             moment([data.year, data.month, data.date, time]).isSameOrAfter(
@@ -68,12 +68,12 @@ const Column = ({ index, data, time, schedules }: Props) => {
                 todaySchedule.from.month,
                 todaySchedule.from.date,
                 todaySchedule.from.time,
-              ]).format("h:mm a")} to ${moment([
+              ]).format("h:mm A")} to ${moment([
                 todaySchedule.to.year,
                 todaySchedule.to.month,
                 todaySchedule.to.date,
                 todaySchedule.to.time,
-              ]).format("h:mm a")}`}
+              ]).format("h:mm A")}`}
               placement="left"
             >
               <div
