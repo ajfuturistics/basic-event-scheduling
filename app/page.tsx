@@ -36,7 +36,6 @@ export default async function Home({ searchParams }: PageProps) {
   );
   const schedulesObj: { schedules: Schedule[] } = await GetUserSchedules();
   const hoursInDay = TimeArrGenerator();
-  console.log(schedulesObj);
 
   return (
     <main className="w-full max-w-[50rem]">

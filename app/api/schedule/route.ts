@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
 
 const ScheduleArr: Schedule[] = [];
 
@@ -15,6 +16,26 @@ export async function POST(request: NextRequest) {
   const { title, from, to } = await request.json();
 
   const schedule = { id: uuidv4(), title, from, to };
+
+  const checkExisting = ScheduleArr.find(
+    (sch) =>
+      moment([
+        sch.from.year,
+        sch.from.month,
+        sch.from.date,
+        sch.from.time,
+      ]).format() ===
+      moment([from.year, from.month, from.date, from.time]).format()
+  );
+
+  if (checkExisting) {
+    return NextResponse.json(
+      {
+        message: "Schedule already exists",
+      },
+      { status: 400 }
+    );
+  }
 
   ScheduleArr.push(schedule);
 

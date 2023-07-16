@@ -47,7 +47,7 @@ const Column = ({ index, data, time, schedules }: Props) => {
               "hour"
             )
           ) {
-            console.log("schedules", schedules);
+            console.log("schedules", schedules, todaySchedule);
 
             setOpenModal(true);
           } else {

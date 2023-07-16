@@ -40,8 +40,6 @@ const ModalComponent = ({
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    console.log(titleRef?.current?.value, date);
-
     if (!titleRef.current) {
       return;
     }
@@ -70,7 +68,9 @@ const ModalComponent = ({
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          if (data?.message) {
+            alert(data.message || "Something went wrong");
+          }
           setOpenModal(false);
           router.refresh();
         })
@@ -87,12 +87,15 @@ const ModalComponent = ({
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          if (data?.message) {
+            alert(data.message || "Something went wrong");
+          }
           setOpenModal(false);
           router.refresh();
         })
         .catch((error) => {
           console.error(error);
+          alert(error.message);
         });
     }
   };
@@ -107,7 +110,9 @@ const ModalComponent = ({
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          if (data?.message) {
+            alert(data.message || "Something went wrong");
+          }
           setOpenModal(false);
           router.refresh();
         })
