@@ -1,6 +1,6 @@
-# event scheduling / calendar app in Next.js
+# Event Scheduling / Calendar app in Next.js
 
-Basic event scheduling website. UI inspired by google calender.
+Basic event scheduling website. UI inspired by Google Calender.
 
 ## TODO
 
@@ -15,6 +15,7 @@ Basic event scheduling website. UI inspired by google calender.
 
 ```bash
 BASE_URL=http://localhost:3000
+NEXT_PUBLIC_SERVER_URL=http://localhost:3000
 ```
 
 ## Steps to run
