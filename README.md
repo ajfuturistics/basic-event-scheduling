@@ -7,7 +7,8 @@ Basic event scheduling website. UI inspired by Google Calender.
 - Current week view should be shown by default (Completed)
 - user should be able to navigate to previous and next weeks (Completed)
 - User should be able to create, modify and delete events (Completed)
-- Add Database (Pending)
+- Add Database (Completed)
+- Adding Validations (Pending)
 - User should be able to signup/login (Pending)
 - send reminders of the events to users (Pending)
 
