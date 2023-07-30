@@ -13,7 +13,7 @@ interface ScheduleDateTime {
   time: number;
 }
 interface Schedule {
-  id?: string;
+  _id?: string;
   title: string;
   from: ScheduleDateTime;
   to: ScheduleDateTime;

@@ -5,7 +5,7 @@ interface Props {
 }
 const WeekBar = ({ week }: Props) => {
   return (
-    <thead className="w-full sticky top-0 bg-white z-50">
+    <thead className="w-full sticky top-0 bg-white z-10">
       <tr className="m-1 w-full">
         {week.map((day) => (
           <th

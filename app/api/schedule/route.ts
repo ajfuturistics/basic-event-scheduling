@@ -1,115 +1,105 @@
 import { NextRequest, NextResponse } from "next/server";
-import { v4 as uuidv4 } from "uuid";
-import moment from "moment";
-
-const ScheduleArr: Schedule[] = [];
+import { connectToDB } from "@/utils/database";
+import Schedule from "@/models/schedule";
 
 export async function GET(request: Request) {
-  return NextResponse.json(
-    {
-      schedules: ScheduleArr,
-    },
-    { status: 200 }
-  );
+  try {
+    await connectToDB();
+
+    const allSchedules = await Schedule.find({});
+
+    return new Response(JSON.stringify(allSchedules), { status: 201 });
+  } catch (error) {
+    return new Response("Failed to get schedules", { status: 500 });
+  }
 }
 export async function POST(request: NextRequest) {
   const { title, from, to } = await request.json();
 
-  const schedule = { id: uuidv4(), title, from, to };
+  try {
+    await connectToDB();
 
-  const checkExisting = ScheduleArr.find(
-    (sch) =>
-      moment([
-        sch.from.year,
-        sch.from.month,
-        sch.from.date,
-        sch.from.time,
-      ]).format() ===
-      moment([from.year, from.month, from.date, from.time]).format()
-  );
+    const checkExisting = await Schedule.find({ from });
 
-  if (checkExisting) {
+    if (!checkExisting) {
+      return NextResponse.json(
+        {
+          message: "Schedule already exists",
+        },
+        { status: 400 }
+      );
+    }
+
+    const newSchedule = new Schedule({ title, from, to });
+    newSchedule.save();
+
     return NextResponse.json(
       {
-        message: "Schedule already exists",
+        schedule: newSchedule,
       },
-      { status: 400 }
+      { status: 201 }
     );
+  } catch (error) {
+    return new Response("Failed to create a new schedule", { status: 500 });
   }
-
-  ScheduleArr.push(schedule);
-
-  return NextResponse.json(
-    {
-      schedules: ScheduleArr,
-    },
-    { status: 200 }
-  );
 }
 export async function PUT(request: NextRequest) {
   const scheduleId = request.nextUrl.searchParams.get("id") || "0";
 
-  if (!scheduleId) {
+  try {
+    const schedule = await Schedule.find({ _id: scheduleId });
+
+    if (!schedule) {
+      return NextResponse.json(
+        {
+          message: "Schedule not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    const { title, from, to } = await request.json();
+
+    const updatedSchedule = await Schedule.findByIdAndUpdate(scheduleId, {
+      title,
+      from,
+      to,
+    });
+
     return NextResponse.json(
       {
-        message: "Schedule Id not found",
+        schedule: updatedSchedule,
       },
-      { status: 400 }
+      { status: 200 }
     );
+  } catch (error) {
+    return new Response("Failed to update schedule", { status: 500 });
   }
-
-  const scheduleIndex = ScheduleArr.findIndex((sch) => sch.id === scheduleId);
-
-  if (scheduleIndex === -1) {
-    return NextResponse.json(
-      {
-        message: "user not found",
-      },
-      { status: 404 }
-    );
-  }
-
-  const { title, from, to } = await request.json();
-
-  ScheduleArr[scheduleIndex].title = title;
-  ScheduleArr[scheduleIndex].from = from;
-  ScheduleArr[scheduleIndex].to = to;
-
-  return NextResponse.json(
-    {
-      schedules: ScheduleArr,
-    },
-    { status: 200 }
-  );
 }
 export async function DELETE(request: NextRequest) {
   const scheduleId = request.nextUrl.searchParams.get("id") || "0";
 
-  if (!scheduleId) {
+  try {
+    const schedule = await Schedule.find({ _id: scheduleId });
+
+    if (!schedule) {
+      return NextResponse.json(
+        {
+          message: "Schedule not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    await Schedule.findByIdAndRemove(scheduleId);
+
     return NextResponse.json(
       {
-        message: "Schedule Id not found",
+        message: "Schedule Deleted Successfully",
       },
-      { status: 400 }
+      { status: 200 }
     );
+  } catch (error) {
+    return new Response("Failed to delete schedule", { status: 500 });
   }
-
-  const scheduleIndex = ScheduleArr.findIndex((sch) => sch.id === scheduleId);
-
-  if (scheduleIndex === -1) {
-    return NextResponse.json(
-      {
-        message: "user not found",
-      },
-      { status: 404 }
-    );
-  }
-  ScheduleArr.splice(scheduleIndex, 1);
-
-  return NextResponse.json(
-    {
-      schedules: ScheduleArr,
-    },
-    { status: 200 }
-  );
 }

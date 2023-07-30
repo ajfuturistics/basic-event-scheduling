@@ -34,7 +34,8 @@ export default async function Home({ searchParams }: PageProps) {
   const data: { week: WeekDays[] } = await GetCurrentWeek(
     searchParams?.week || "0"
   );
-  const schedulesObj: { schedules: Schedule[] } = await GetUserSchedules();
+  const schedules: Schedule[] = await GetUserSchedules();
+
   const hoursInDay = TimeArrGenerator();
 
   return (
@@ -53,7 +54,7 @@ export default async function Home({ searchParams }: PageProps) {
               key={time}
               data={data.week}
               time={time}
-              schedules={schedulesObj?.schedules}
+              schedules={schedules}
             />
           ))}
         </tbody>

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import moment from "moment";
 import { Tooltip } from "flowbite-react";
@@ -47,8 +48,6 @@ const Column = ({ index, data, time, schedules }: Props) => {
               "hour"
             )
           ) {
-            console.log("schedules", schedules, todaySchedule);
-
             setOpenModal(true);
           } else {
             alert("Date/Time is in past");
@@ -86,7 +85,9 @@ const Column = ({ index, data, time, schedules }: Props) => {
 
       <ModalComponent
         key={
-          todaySchedule ? `${todaySchedule?.id}` : `modal-${data.date}-${time}`
+          todaySchedule
+            ? `modal-${data.date}-${time}-${todaySchedule?._id}`
+            : `modal-${data.date}-${time}`
         }
         openModal={openModal}
         setOpenModal={setOpenModal}

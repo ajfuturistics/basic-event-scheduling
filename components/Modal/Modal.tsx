@@ -1,13 +1,7 @@
 "use client";
 
 import { Button, Label, Modal, Select, TextInput } from "flowbite-react";
-import React, {
-  FormEvent,
-  MutableRefObject,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { FormEvent, useRef, useState } from "react";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 import { TimeArrGenerator } from "@/utils/generatorFunctions";
@@ -59,7 +53,7 @@ const ModalComponent = ({
     };
 
     if (todaySchedule) {
-      fetch(`/api/schedule?id=${todaySchedule.id}`, {
+      fetch(`/api/schedule?id=${todaySchedule._id}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -102,7 +96,7 @@ const ModalComponent = ({
 
   const handleDelete = () => {
     if (todaySchedule) {
-      fetch(`/api/schedule?id=${todaySchedule.id}`, {
+      fetch(`/api/schedule?id=${todaySchedule._id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
@@ -150,7 +144,7 @@ const ModalComponent = ({
               id="date"
               type="date"
               value={moment([date.year, date.month, date.date]).format(
-                "yyyy-MM-D"
+                "yyyy-MM-DD"
               )}
               onChange={(e) => {
                 const dateArr = moment(e.target.value)
