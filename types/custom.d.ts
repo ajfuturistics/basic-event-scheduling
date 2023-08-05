@@ -1,15 +1,11 @@
 interface WeekDays {
   dayName: string;
-  date: number;
-  month: number;
-  year: number;
+  date: string;
 }
 
 interface ScheduleDateTime {
   dayName: string;
-  year: number;
-  month: number;
-  date: number;
+  date: string;
   time: number;
 }
 interface Schedule {

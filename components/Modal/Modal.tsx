@@ -25,12 +25,19 @@ const ModalComponent = ({
   const titleRef = useRef<HTMLInputElement>(null);
   const [date, setDate] = useState({
     dayName: todaySchedule?.from.dayName || data.dayName,
-    year: todaySchedule?.from.year || data.year,
-    month: todaySchedule?.from.month || data.month,
     date: todaySchedule?.from.date || data.date,
     time: todaySchedule?.from.time || time,
   });
 
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const dateStr = moment(e.target.value).format("yyyy-MM-D");
+
+    setDate({
+      ...date,
+      dayName: moment(e.target.value).format("ddd"),
+      date: dateStr,
+    });
+  };
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
@@ -143,22 +150,8 @@ const ModalComponent = ({
             <TextInput
               id="date"
               type="date"
-              value={moment([date.year, date.month, date.date]).format(
-                "yyyy-MM-DD"
-              )}
-              onChange={(e) => {
-                const dateArr = moment(e.target.value)
-                  .format("yyyy-MM-D")
-                  .split("-");
-
-                setDate({
-                  ...date,
-                  dayName: moment(e.target.value).format("ddd"),
-                  year: Number(dateArr[0]),
-                  month: Number(dateArr[1]) - 1,
-                  date: Number(dateArr[2]),
-                });
-              }}
+              value={moment(date.date).format("yyyy-MM-DD")}
+              onChange={handleDateChange}
               required
             />
           </div>

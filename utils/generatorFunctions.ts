@@ -8,9 +8,7 @@ export const generateWeekArray = (weekShift: number) => {
     const day = currentDate.clone().add(i, "days");
     const dayDetails = {
       dayName: day.format("ddd"),
-      date: day.date(),
-      month: day.month(),
-      year: day.year(),
+      date: day.format("yyyy-MM-D"),
     };
     weekArray.push(dayDetails);
   }

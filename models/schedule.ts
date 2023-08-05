@@ -7,16 +7,12 @@ const ScheduleSchema = new Schema({
   },
   from: {
     dayName: { type: String, required: [true, "Date is required!"] },
-    year: { type: Number, required: [true, "Date is required!"] },
-    month: { type: Number, required: [true, "Date is required!"] },
-    date: { type: Number, required: [true, "Date is required!"] },
+    date: { type: String, required: [true, "Date is required!"] },
     time: { type: Number, required: [true, "Date is required!"] },
   },
   to: {
     dayName: { type: String, required: [true, "Date is required!"] },
-    year: { type: Number, required: [true, "Date is required!"] },
-    month: { type: Number, required: [true, "Date is required!"] },
-    date: { type: Number, required: [true, "Date is required!"] },
+    date: { type: String, required: [true, "Date is required!"] },
     time: { type: Number, required: [true, "Date is required!"] },
   },
 });
