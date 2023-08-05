@@ -23,8 +23,6 @@ const Column = ({ index, data, time, schedules }: Props) => {
       );
     }
 
-    console.log(result, schedules);
-
     return result;
   };
 

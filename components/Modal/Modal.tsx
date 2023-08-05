@@ -50,6 +50,16 @@ const ModalComponent = ({
       return;
     }
 
+    if (
+      !moment(`${date.date} ${date.time}`, "yyyy-MM-D H").isSameOrAfter(
+        Date.now(),
+        "hour"
+      )
+    ) {
+      alert("Date/Time is in past");
+      return;
+    }
+
     const schedule: Schedule = {
       title: titleRef.current.value,
       from: date,
